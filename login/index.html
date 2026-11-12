@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RestoBI · Entrar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--fg:#020817;--muted:#64748b;--border:#e2e8f0;--blue:#19a3e2;--title:#0f4f7a;color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Geist,system-ui,sans-serif;color:var(--fg);-webkit-font-smoothing:antialiased;min-height:100vh;background:#19a3e2;background:radial-gradient(circle at 15% 10%,#5cc4f5 0,#19a3e2 45%,#1b7ef2 100%);display:grid;place-items:center;padding:24px 16px}
+.wrap{width:min(1080px,100%);display:grid;grid-template-columns:1.05fr 1fr;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(2,8,23,.45);animation:in .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(14px) scale(.99)}}
+
+/* LEFT */
+.side{position:relative;padding:40px 40px 36px;background:linear-gradient(180deg,#bfe9ff 0%,#a6dcfb 55%,#88c8ef 100%);color:#0b3a5c;display:flex;flex-direction:column;gap:22px;overflow:hidden}
+.side::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.38),transparent 40%);pointer-events:none}
+.side::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0 1px,transparent 1px 22px);mask-image:linear-gradient(180deg,transparent,#000 30%,transparent 80%);pointer-events:none}
+.side>*{position:relative;z-index:1}
+.chip{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;height:30px;padding:0 12px;border-radius:9px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.7);font-size:13px;font-weight:600;color:#0f4f7a;text-decoration:none}
+.chip:hover{background:rgba(255,255,255,.75)}
+.side h1{font-size:clamp(28px,3.4vw,40px);line-height:1.08;letter-spacing:-.025em;font-weight:700;color:#082f4d;max-width:440px}
+.side p{font-size:14px;color:#235a80;max-width:400px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.75);border-radius:16px;padding:14px 16px;backdrop-filter:blur(6px)}
+.stat small{display:block;font-size:10.5px;letter-spacing:.12em;font-weight:600;color:#1b6aa5}
+.stat b{display:flex;align-items:center;gap:6px;font-size:24px;letter-spacing:-.02em;margin:4px 0;color:#082f4d}
+.stat b.up{color:#0f8a5f}
+.stat span{font-size:12px;color:#2f6e96}
+.feat{display:grid;gap:10px;margin-top:auto}
+.feat div{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.7);border-radius:12px;padding:10px 14px;font-size:13px;color:#0b3a5c;font-weight:500}
+.feat svg{flex:none;color:#1b7ef2}
+
+/* RIGHT */
+.form-side{padding:56px 48px;display:flex;flex-direction:column;justify-content:center}
+.form-side h2{font-size:30px;font-weight:700;letter-spacing:-.02em;text-align:center;color:#1b7ef2}
+.form-side .sub{text-align:center;color:var(--muted);font-size:13.5px;margin:8px auto 30px;max-width:320px}
+form{display:grid;gap:16px}
+label{display:grid;gap:7px;font-size:13px;font-weight:600}
+.inp{height:44px;border:1px solid var(--border);border-radius:10px;padding:0 14px;font:inherit;font-size:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.05);transition:border-color .15s,box-shadow .15s}
+.inp:focus{outline:none;border-color:#60a5fa;box-shadow:0 0 0 3px rgba(59,130,246,.18)}
+.inp.err{border-color:#f87171}
+.pw{position:relative}
+.pw .inp{width:100%;padding-right:44px}
+.eye{position:absolute;right:6px;top:6px;width:32px;height:32px;border:0;background:none;border-radius:8px;color:var(--muted);cursor:pointer;display:grid;place-items:center}
+.eye:hover{background:#f1f5f9}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12.5px}
+.row label{display:flex;align-items:center;gap:8px;font-weight:400;color:#334155;cursor:pointer}
+.row input[type=checkbox]{width:15px;height:15px;accent-color:#1b7ef2}
+.forgot{border:0;background:none;color:#c026d3;font:inherit;font-size:12.5px;font-weight:500;cursor:pointer}
+.forgot:hover{text-decoration:underline}
+.btn{height:46px;border:0;border-radius:12px;background:linear-gradient(135deg,#1699f3 0%,#1b7ef2 100%);color:#fff;font:inherit;font-weight:600;font-size:15px;cursor:pointer;box-shadow:0 10px 20px -10px rgba(27,126,242,.8);transition:transform .15s,filter .15s;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.75;cursor:wait;transform:none}
+.spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.msg{font-size:13px;border-radius:10px;padding:10px 12px;display:none}
+.msg.show{display:block;animation:in .2s}
+.msg.err{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}
+.msg.ok{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+.back{display:block;text-align:center;margin-top:22px;font-size:12.5px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--fg)}
+.demo{text-align:center;margin-top:10px;font-size:11.5px;color:#94a3b8}
+
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr;max-width:520px}
+  .side{padding:28px 24px;gap:16px}
+  .feat{display:none}
+  .form-side{padding:36px 24px}
+}
+@media (max-width:420px){.stats{grid-template-columns:1fr}.side h1{font-size:26px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="side">
+    <a class="chip" href="../landing/index.html" title="Voltar para o site"><svg width="14" height="14" viewBox="0 0 18 18"><rect x="2" y="9" width="3.5" height="7" rx="1" fill="#1b7ef2"/><rect x="7.25" y="5" width="3.5" height="11" rx="1" fill="#0f4f7a"/><rect x="12.5" y="2" width="3.5" height="14" rx="1" fill="#1b7ef2"/></svg>RestoBI</a>
+    <h1>Entre no mesmo painel que revela liquido, desconto e meta em tempo real.</h1>
+    <p>A leitura do resultado comeca aqui e continua no dashboard. Mesmo ambiente, mesma linguagem, mesma clareza para decidir rapido.</p>
+    <div class="stats">
+      <div class="stat"><small>LIQUIDO REAL</small><b>R$ 1,36 mi</b><span>Numero que sustenta a operacao.</span></div>
+      <div class="stat"><small>META ACUMULADA</small><b class="up"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8M15 7h6v6"/></svg>+3%</b><span>Crescimento monitorado antes do fechamento.</span></div>
+    </div>
+    <div class="feat">
+      <div><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Acesso seguro para toda a operacao</div>
+      <div><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Controle por empresa e perfil de usuario</div>
+    </div>
+  </aside>
+
+  <main class="form-side">
+    <h2>Entrar no RestoBI</h2>
+    <p class="sub">Acesse o painel para ver liquido, desconto e tendencia da operacao em uma unica leitura.</p>
+    <form id="f" novalidate>
+      <div class="msg" id="msg" role="alert"></div>
+      <label>Email<input class="inp" id="email" type="email" autocomplete="username" placeholder="voce@empresa.com"></label>
+      <label>Senha<div class="pw"><input class="inp" id="pass" type="password" autocomplete="current-password"><button type="button" class="eye" id="eye" aria-label="Mostrar senha"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div></label>
+      <div class="row"><label><input type="checkbox" id="remember"> Lembrar email</label><button type="button" class="forgot" id="forgot">Esqueci minha senha</button></div>
+      <button class="btn" id="go">Entrar</button>
+    </form>
+    <a class="back" href="../landing/index.html">← Voltar para o site</a>
+    <p class="demo">Demonstração local: qualquer email válido e senha entram no painel de exemplo.</p>
+  </main>
+</div>
+<script>
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const $=id=>document.getElementById(id);
+const msg=(t,kind)=>{const m=$('msg');m.textContent=t;m.className='msg show '+kind};
+const saved=store.get('restobi-demo-email');
+if(saved){$('email').value=saved;$('remember').checked=true;$('pass').focus()}else $('email').focus();
+$('eye').onclick=()=>{const p=$('pass');const show=p.type==='password';p.type=show?'text':'password';$('eye').setAttribute('aria-label',show?'Ocultar senha':'Mostrar senha')};
+$('forgot').onclick=()=>msg('Para redefinir a senha, fale com o administrador da sua empresa no RestoBI.','ok');
+['email','pass'].forEach(id=>$(id).addEventListener('input',()=>{$(id).classList.remove('err');$('msg').className='msg'}));
+$('f').onsubmit=e=>{
+  e.preventDefault();
+  const email=$('email').value.trim(),pass=$('pass').value;
+  const okEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!okEmail||!pass){if(!okEmail)$('email').classList.add('err');if(!pass)$('pass').classList.add('err');msg('Informe um email valido e a senha.','err');return}
+  if($('remember').checked)store.set('restobi-demo-email',email);else store.del('restobi-demo-email');
+  store.set('restobi-demo-session',JSON.stringify({email,at:Date.now()}));
+  const b=$('go');b.disabled=true;b.innerHTML='<span class="spin"></span>Entrando...';
+  setTimeout(()=>{location.href='../painel/index.html#/dashboards/faturamento-geral'},700);
+};
+</script>
+</body>
+</html>
