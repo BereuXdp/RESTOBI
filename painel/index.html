@@ -238,6 +238,7 @@ tr:hover td{background:rgba(241,245,249,.6)}
 .cls{display:inline-grid;place-items:center;width:26px;height:22px;border-radius:6px;color:#fff;font-weight:700;font-size:12px}
 .bspin{width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
 .btn[disabled]{opacity:.7;cursor:wait}
+.embed .demo{display:none}
 .kpis.k5{grid-template-columns:repeat(5,1fr)}
 .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .main-row{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:16px}
@@ -353,10 +354,19 @@ const S={
 };
 try{const l=JSON.parse(localStorage.getItem('restobi-demo')||'{}');if(l.co)S.co=COMPANIES.find(c=>c.slug===l.co)||S.co;}catch(e){}
 /* ============ SESSÃO (demo) ============ */
+const EMBED=new URLSearchParams(location.search).has('embed'); // modo vitrine (capturas da landing)
+if(EMBED){
+  Chart.defaults.animation=false;document.documentElement.classList.add('embed');
+  // vitrine 100% fictícia: empresa, usuário e sorteio de números próprios
+  Object.assign(COMPANIES[0],{slug:'trattoriaaurora',name:'Trattoria Aurora',schema:'demo_trattoria'});
+  S.co=COMPANIES[0];S.refresh=4242;
+  S.users=[{name:'Marina Costa',email:'marina@trattoriaaurora.exemplo',status:'ACTIVE',role:'ADMIN'},{name:'Rafael Lima',email:'rafael@trattoriaaurora.exemplo',status:'ACTIVE',role:'ANALISTA'},{name:'Júlia Prado',email:'julia@trattoriaaurora.exemplo',status:'ACTIVE',role:'VISUALIZADOR'}];
+  addEventListener('DOMContentLoaded',()=>document.querySelectorAll('#acctBtn span,.who').forEach(el=>el.textContent=S.users[0].email));
+}
 (function(){
   let ok=true,sess=null;
   try{sess=JSON.parse(localStorage.getItem('restobi-demo-session')||'null')}catch(e){ok=false}
-  if(ok&&!sess){location.replace('../login/index.html');return}
+  if(ok&&!sess&&!EMBED){location.replace('../login/index.html');return}
   if(sess&&sess.email){S.users[0].email=sess.email;S.users[0].name=sess.email.split('@')[0];
     addEventListener('DOMContentLoaded',()=>document.querySelectorAll('#acctBtn span,.who').forEach(el=>el.textContent=sess.email))}
 })();
@@ -849,7 +859,7 @@ document.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.menu').forEach(x=>x.classList.remove('open'));closeDrawer()}});
 $('#logoutBtn').onclick=()=>{try{localStorage.removeItem('restobi-demo-session')}catch(e){}location.href='../login/index.html'};
 $('#refreshBtn').onclick=e=>{const b=e.currentTarget;b.classList.add('spin');S.refresh++;render(true);setTimeout(()=>{b.classList.remove('spin');toast('Dados atualizados.')},600)};
-function route(){const h=location.hash.replace(/^#\/?(dashboards\/)?/,'');S.page=PAGES.some(p=>p.id===h)?h:'faturamento-geral';window.scrollTo(0,0);render(true)}
+function route(){const h=location.hash.replace(/^#\/?(dashboards\/)?/,'');S.page=PAGES.some(p=>p.id===h)?h:'faturamento-geral';window.scrollTo(0,0);render(!EMBED)}
 addEventListener('hashchange',route);addEventListener('popstate',route);
 route();
 </script>

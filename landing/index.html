@@ -239,12 +239,69 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 footer nav{display:flex;gap:22px}
 
 /* REVEAL */
-.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)}
-.rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+/* Animate on scroll (estilo PrimeVue AnimateOnScroll):
+   entra com fade de 10% → 100% subindo 4rem em 1000ms; sai com fade-out de 100ms; repete a cada entrada */
+.rv{opacity:0}
+.rv.aos-in{opacity:1;animation:aos-enter 1s cubic-bezier(.25,.8,.3,1) backwards}
+.rv.aos-in.d1{animation-delay:.08s}.rv.aos-in.d2{animation-delay:.16s}.rv.aos-in.d3{animation-delay:.24s}
+.rv.aos-out{opacity:0;animation:aos-leave .1s linear}
+@keyframes aos-enter{from{opacity:.1;transform:translate3d(0,4rem,0)}to{opacity:1;transform:none}}
+@keyframes aos-leave{from{opacity:1}to{opacity:0}}
+
+/* PRINTS REAIS DO PAINEL */
+/* HERO centralizada */
+.hero{padding-top:56px}
+.hero .hero-top{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.hero .hero-shot{display:block}
+.avatars{display:flex;justify-content:center;margin-bottom:26px}
+.avatars>span{width:66px;height:66px;border-radius:50%;background:var(--bg);border:2.5px solid var(--b);display:grid;place-items:center;margin-left:-9px;box-shadow:0 0 0 3px #fff;transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.avatars>span:first-child{margin-left:0}
+.avatars>span:hover{transform:translateY(-6px) rotate(-6deg)}
+.avatars svg{width:38px;height:38px;fill:none;stroke:#0a1b2e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.avatars svg.w{stroke:#fff}
+.avatars svg .f{fill:#0a1b2e;stroke:none}
+.hero .hero-top h1{font-size:clamp(42px,7.2vw,92px);line-height:1.04;letter-spacing:-.045em;font-weight:700;margin:0;max-width:1080px;color:var(--ink)}
+.pill-word{display:inline-block;box-sizing:border-box;line-height:1.12;padding:0 .38em 0 .3em;margin:0 .06em;border-radius:999px;background:var(--pb);vertical-align:baseline;font-weight:500;letter-spacing:-.03em;white-space:nowrap;text-align:left;transition:width .4s cubic-bezier(.2,.7,.2,1),background-color .4s}
+.pill-word i{display:inline-block;width:.26em;height:.26em;margin-right:.2em;border-radius:50%;background:var(--pd);vertical-align:.14em;transition:background-color .4s}
+.pill-word span{display:inline-block;transition:opacity .2s,transform .3s cubic-bezier(.2,.7,.2,1)}
+.pill-word.out span{opacity:0;transform:translateY(.35em)}
+.hero .hero-top .lead{margin:22px auto 0;font-size:clamp(16px,1.6vw,19px);max-width:620px;color:var(--ink-2)}
+.hero .hero-top .hero-ctas{justify-content:center;margin:26px 0 0}
+.btn-solid,.btn-soft{display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:9px;font-weight:600;font-size:15px;transition:background .15s,transform .15s}
+.btn-solid{background:var(--lime);color:#fff}
+.btn-solid:hover{background:var(--blue-2);transform:translateY(-1px)}
+.btn-soft{background:#e0efff;color:#1a5fb4}
+.btn-soft:hover{background:#cfe5ff;transform:translateY(-1px)}
+.doodle{position:absolute;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;border:2px solid #0a1b2e;animation:bob 6s ease-in-out infinite}
+.doodle svg{width:30px;height:30px;fill:none;stroke:#0a1b2e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.d-left{left:2%;bottom:-6px;background:#fcd34d}
+.d-right{right:2%;bottom:-14px;background:#c4b5fd;animation-delay:-3s}
+.doodle-mini{position:absolute;left:calc(2% + 50px);bottom:-14px;width:20px;height:20px;border-radius:50%;background:#94a3b8;border:2px solid #fff}
+.sparkle{position:absolute;color:#0a1b2e;font-size:14px;right:calc(2% + 2px);bottom:40px}
+.sparkle.sp2{right:calc(2% - 12px);bottom:52px;font-size:10px}
+.hero-shot{margin-top:48px;perspective:1600px}
+.shot{margin:0;background:#fff;border:1.5px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:0 10px 0 var(--ink);}
+.shot img{display:block;width:100%;height:auto}
+.shot-bar{display:flex;align-items:center;gap:6px;height:34px;padding:0 14px;background:#f1f5f9;border-bottom:1px solid #e2e8f0}
+.shot-bar i{width:10px;height:10px;border-radius:50%;background:#cbd5e1}
+.shot-bar i:first-child{background:#f87171}.shot-bar i:nth-child(2){background:#fbbf24}.shot-bar i:nth-child(3){background:#34d399}
+.shot-bar span{margin-left:12px;flex:1;max-width:420px;height:22px;border-radius:7px;background:#fff;border:1px solid #e2e8f0;font:12px "JetBrains Mono",monospace;color:#64748b;display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot.big{border-radius:22px;box-shadow:0 14px 0 var(--ink),0 50px 80px -40px rgba(15,79,122,.45);transform:rotateX(4deg);transform-origin:50% 0}
+.shot.big .shot-bar{height:40px}
+.shot-note{display:flex;align-items:flex-start;gap:8px;max-width:760px;margin:22px auto 0;font-size:13px;line-height:1.5;color:var(--muted);text-align:left}
+.shot-note svg{flex:none;margin-top:2px;color:var(--blue-2)}
+.shot-note b{color:var(--ink);font-weight:600}
+.admin-note{display:flex;align-items:flex-start;gap:10px;margin-top:22px!important;padding:12px 14px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(255,255,255,.05);font-size:13px;line-height:1.5;color:#cbd5e1!important}
+.admin-note svg{flex:none;margin-top:2px;color:var(--sky)}
+.shot.on-dark{border-color:#2b3a4f;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.phone-shot{margin:0 auto;width:min(340px,100%);padding-top:30px;border:10px solid #0a1b2e;border-radius:42px;overflow:hidden;background:#0a1b2e;box-shadow:0 12px 0 rgba(0,0,0,.25),0 40px 60px -30px rgba(0,0,0,.5);position:relative}
+.phone-shot::before{content:"";position:absolute;top:8px;left:50%;width:90px;height:22px;margin-left:-45px;border-radius:99px;background:#0a1b2e;z-index:1}
+.phone-shot img{display:block;width:100%;height:600px;object-fit:cover;object-position:top;border-radius:4px 4px 30px 30px}
 
 /* RESPONSIVE */
 @media (max-width:980px){
+  .doodle,.doodle-mini,.sparkle{display:none}
+  .shot.big{transform:none}
   .nav-links{display:none}
   .hero .wrap,.steps .wrap,.dive,.multi,.faq,.cta{grid-template-columns:1fr}
   .dive.rev .dive-copy{order:0}
@@ -253,6 +310,14 @@ footer nav{display:flex;gap:22px}
   .sec-head{grid-template-columns:1fr}
 }
 @media (max-width:640px){
+  .hero-shot{margin-top:32px}
+  .avatars>span{width:42px;height:42px;margin-left:-8px}
+  .avatars svg{width:24px;height:24px}
+  .hero .hero-top h1{font-size:clamp(34px,10vw,46px)}
+  .hero .hero-top .hero-ctas{flex-direction:column;align-items:stretch;width:100%;max-width:320px}
+  .btn-solid,.btn-soft{justify-content:center}
+  .shot-bar span{display:none}
+  .phone-shot img{height:520px}
   section{padding:72px 0}
   .hero{padding-top:36px}
   .grid{grid-template-columns:1fr}
@@ -271,7 +336,7 @@ footer nav{display:flex;gap:22px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none}
+  .rv,.rv.aos-out{opacity:1;transform:none;animation:none}
   .bar i{width:var(--w)}
   .chart svg path.draw{stroke-dashoffset:0}
 }
@@ -300,45 +365,34 @@ footer nav{display:flex;gap:22px}
 
 <main>
   <!-- HERO -->
-  <section class="hero" style="padding-bottom:40px">
-    <div class="wrap">
-      <div>
-        <span class="eyebrow rv">BI para restaurantes</span>
-        <h1 class="rv d1">Pare de fechar o mês <span class="serif">no escuro.</span></h1>
-        <p class="lead rv d2">O RestoBI transforma as vendas da sua operação em painéis claros: líquido, desconto, ticket médio e meta, por unidade, refeição e dia da semana, sem planilha.</p>
-        <div class="hero-ctas rv d3">
-          <a class="btn btn-lime" href="#contato">Agendar demonstração <span aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" href="#como-funciona">Como funciona</a>
-        </div>
-        <div class="tags rv d3">
-          <span class="pill">Faturamento líquido</span><span class="pill">Descontos</span><span class="pill">Ticket médio</span><span class="pill">Metas</span><span class="pill">Mapa de calor</span><span class="pill">Vendedores</span>
-        </div>
+  <section class="hero">
+    <div class="wrap hero-top">
+      <div class="avatars rv" aria-hidden="true">
+        <span style="--b:#2563eb;--bg:#fff"><svg viewBox="0 0 40 40"><path d="M13 22c-4 0-6-3-6-6 0-3.5 3-6 6.5-5.5C15 7.5 17.5 6 20 6s5 1.5 6.5 4.5C30 10 33 12.5 33 16c0 3-2 6-6 6"/><path d="M13 21v9h14v-9M13 26h14"/></svg></span>
+        <span style="--b:#0a1b2e;--bg:#fff"><svg viewBox="0 0 40 40"><circle cx="15" cy="17" r="1.6" class="f"/><circle cx="25" cy="17" r="1.6" class="f"/><path d="M14 25c3.5 3 8.5 3 12 0M10 11c2-2 5-3 7-2M30 11c-2-2-5-3-7-2"/></svg></span>
+        <span style="--b:#0a1b2e;--bg:#ef4444"><svg viewBox="0 0 40 40" class="w"><path d="M12 8h16v24l-3-2-2.5 2-2.5-2-2.5 2-2.5-2-3 2z"/><path d="M16 15h8M16 20h8M16 25h5"/></svg></span>
+        <span style="--b:#f59e0b;--bg:#fff"><svg viewBox="0 0 40 40"><path d="M13 8h14c0 7-3 11-7 11s-7-4-7-11zM20 19v10M14 31h12"/><path d="M14 13h12" opacity=".5"/></svg></span>
+        <span style="--b:#0a1b2e;--bg:#fff"><svg viewBox="0 0 40 40"><path d="M9 31h22M12 28V20M18 28V13M24 28v-9M30 28V9"/><path d="m10 16 7-6 6 5 7-7" opacity=".6"/></svg></span>
+        <span style="--b:#0a1b2e;--bg:#60a5fa"><svg viewBox="0 0 40 40"><path d="M20 8 9 30c7 3 15 3 22 0z"/><circle cx="19" cy="20" r="1.8" class="f"/><circle cx="23" cy="25" r="1.6" class="f"/><circle cx="16" cy="26" r="1.4" class="f"/></svg></span>
+        <span style="--b:#f97316;--bg:#fff"><svg viewBox="0 0 40 40"><path d="M10 17h17v7a7 7 0 0 1-7 7h-3a7 7 0 0 1-7-7z"/><path d="M27 19h2a3 3 0 0 1 0 6h-2M15 13c0-2 2-2 2-4M20 13c0-2 2-2 2-4"/></svg></span>
       </div>
-
-      <div class="stage rv d2" aria-label="Exemplo do painel RestoBI">
-        <div class="orbit"></div><div class="orbit o2"></div>
-        <div class="dash">
-          <div class="dash-top"><b>Faturamento geral</b><div class="dots"><i></i><i></i><i></i></div></div>
-          <div class="kpis">
-            <div class="kpi"><small>Líquido</small><strong>R$ 1,36 mi</strong><em>+8,4%</em></div>
-            <div class="kpi"><small>Ticket médio</small><strong>R$ 87,40</strong><em>+2,1%</em></div>
-            <div class="kpi"><small>Desconto</small><strong>3,2%</strong><em class="neg">+0,4 p.p.</em></div>
-          </div>
-          <div class="chart">
-            <div class="chart-head">Ano anterior × atual<div class="seg"><span class="on">Líquido</span><span>Qtd.</span><span>Desc.</span></div></div>
-            <svg viewBox="0 0 400 140" preserveAspectRatio="none" style="width:100%;height:140px">
-              <g stroke="#e2e8f0" stroke-width="1"><line x1="0" y1="30" x2="400" y2="30"/><line x1="0" y1="70" x2="400" y2="70"/><line x1="0" y1="110" x2="400" y2="110"/></g>
-              <path class="draw" d="M0,104 C30,98 50,92 70,95 S110,80 140,84 S190,70 220,74 S270,62 300,66 S360,52 400,56" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 5"/>
-              <path d="M0,96 C30,88 50,84 70,80 S110,70 140,62 S190,58 220,46 S270,40 300,34 S360,22 400,18 L400,140 L0,140Z" fill="#2b8de6" opacity=".35"/>
-              <path class="draw" d="M0,96 C30,88 50,84 70,80 S110,70 140,62 S190,58 220,46 S270,40 300,34 S360,22 400,18" fill="none" stroke="#0a1b2e" stroke-width="3"/>
-              <circle cx="300" cy="34" r="5" fill="#2b8de6" stroke="#0a1b2e" stroke-width="2"/>
-            </svg>
-            <div class="legend"><span><i style="background:#0a1b2e"></i>2026</span><span><i style="background:#94a3b8"></i>2025</span></div>
-          </div>
-        </div>
-        <div class="float goal"><span class="mono" style="font-size:10px;text-transform:uppercase;letter-spacing:.06em">Meta do mês</span><b>92%</b><div class="bar"><i style="--w:92%"></i></div></div>
-        <div class="float ticket"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M4 17l6-6 4 4 6-8"/></svg></span><div><b style="display:block;font-size:14px">Sexta, 20h–22h</b><span style="color:var(--muted)">horário de pico da semana</span></div></div>
+      <h1 class="rv d1">Onde restaurantes e dados <span class="pill-word" id="pillWord" style="--pb:#dcfce7;--pd:#16a34a"><i></i><span>crescem</span></span> juntos.</h1>
+      <p class="lead rv d2">Faturamento, ticket médio, metas e curva ABC do seu restaurante em painéis claros, por unidade e em tempo real. Sem planilha.</p>
+      <div class="hero-ctas rv d3">
+        <a class="btn-solid" href="#contato">Agendar demonstração</a>
+        <a class="btn-soft" href="../login/index.html">Entrar no painel</a>
       </div>
+      <span class="doodle d-left" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M13 9h14v22l-2.5-1.8-2.2 1.8-2.3-1.8-2.3 1.8-2.2-1.8L13 31z"/><path d="M17 15h6M17 19h6M17 23h4"/></svg></span>
+      <span class="doodle-mini dl2" aria-hidden="true"></span>
+      <span class="doodle d-right" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="11" y="10" width="18" height="20" rx="3"/><path d="m15 20 4 4 7-8"/></svg></span>
+      <span class="sparkle sp1" aria-hidden="true">✦</span><span class="sparkle sp2" aria-hidden="true">✦</span>
+    </div>
+    <div class="wrap hero-shot rv d2">
+      <figure class="shot big" role="img" aria-label="Painel Faturamento Geral do RestoBI">
+          <div class="shot-bar"><i></i><i></i><i></i><span>restobi.com.br/dashboards/faturamento-geral</span></div>
+          <img src="img/faturamento.webp" alt="Painel Faturamento Geral do RestoBI" fetchpriority="high" decoding="async">
+        </figure>
+      <p class="shot-note"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span>Telas reais do RestoBI com dados fictícios.</span></p>
     </div>
   </section>
 
@@ -397,16 +451,9 @@ footer nav{display:flex;gap:22px}
   <section class="steps" id="como-funciona">
     <div class="bigword" aria-hidden="true">RestoBI</div>
     <div class="wrap">
-      <div class="phone rv" aria-label="Exemplo de resumo da semana">
-        <div class="row"><span class="chip">● Unidade Centro</span><span class="chip">Semana 45</span></div>
-        <small>Faturamento líquido da semana</small>
-        <div class="big">R$ 184.320,50</div>
-        <div class="mini-bars">
-          <i style="--h:38%"></i><i style="--h:46%"></i><i style="--h:52%"></i><i style="--h:61%"></i><i class="hi" style="--h:96%"></i><i style="--h:88%"></i><i style="--h:64%"></i>
-        </div>
-        <div class="row mono" style="font-size:10px;color:#8c908a;margin:-10px 0 18px"><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span><span>DOM</span></div>
-        <div class="actions"><span>Por refeição</span><span>Por modalidade</span><span class="go">Ver meta →</span></div>
-      </div>
+      <figure class="phone-shot rv" role="img" aria-label="RestoBI no celular">
+        <img src="img/mobile.webp" alt="Tela de Vendedores do RestoBI no celular" loading="lazy" decoding="async">
+      </figure>
       <div>
         <span class="eyebrow rv">Como funciona</span>
         <h2 class="rv d1" style="margin-top:14px">Do caixa à decisão<br>em 3 passos.</h2>
@@ -432,29 +479,10 @@ footer nav{display:flex;gap:22px}
           </ul>
           <a class="btn btn-dark rv d3" href="#contato">Quero ver com meus dados</a>
         </div>
-        <div class="panel rv d1 reveal-kids">
-          <div class="panel-title">Faturamento por unidade <div class="seg"><span>Rosca</span><span class="on">Ranking</span></div></div>
-          <div class="rank">
-            <div class="rank-row"><span>Unidade Centro</span><div class="track2"><i style="--w:92%"></i></div><b>R$ 482 mil</b></div>
-            <div class="rank-row"><span>Unidade Sul</span><div class="track2"><i style="--w:74%"></i></div><b>R$ 391 mil</b></div>
-            <div class="rank-row"><span>Shopping</span><div class="track2"><i style="--w:58%"></i></div><b>R$ 304 mil</b></div>
-            <div class="rank-row"><span>Delivery</span><div class="track2"><i style="--w:36%"></i></div><b>R$ 186 mil</b></div>
-          </div>
-          <div class="donut-wrap">
-            <svg width="110" height="110" viewBox="0 0 42 42" aria-hidden="true">
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#eef4fb" stroke-width="7"/>
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#0a1b2e" stroke-width="7" stroke-dasharray="46 54" stroke-dashoffset="25"/>
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#2b8de6" stroke-width="7" stroke-dasharray="32 68" stroke-dashoffset="79"/>
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#94a3b8" stroke-width="7" stroke-dasharray="22 78" stroke-dashoffset="47"/>
-            </svg>
-            <div class="donut-legend">
-              <b style="font-size:13px;margin-bottom:4px">Por refeição</b>
-              <span><i style="background:#0a1b2e"></i>Jantar · 46%</span>
-              <span><i style="background:#2b8de6"></i>Almoço · 32%</span>
-              <span><i style="background:#94a3b8"></i>Happy hour · 22%</span>
-            </div>
-          </div>
-        </div>
+        <figure class="shot rv d1" role="img" aria-label="Painel Categorias e Produtos">
+          <div class="shot-bar"><i></i><i></i><i></i><span>restobi.com.br/dashboards/categorias-e-produtos</span></div>
+          <img src="img/categorias.webp" alt="Painel Categorias e Produtos" loading="lazy" decoding="async">
+        </figure>
       </div>
 
       <div class="dive rev">
@@ -467,11 +495,10 @@ footer nav{display:flex;gap:22px}
             <li>Ideal para planejar escala e happy hour</li>
           </ul>
         </div>
-        <div class="panel rv d1">
-          <div class="panel-title">Vendas por dia e horário <span class="mono" style="font-size:11px;color:var(--muted)">últimas 4 semanas</span></div>
-          <div class="heat" id="heat"></div>
-          <div class="heat-foot"><span>Menos</span><div class="scale"><i style="background:#fff;border:1px solid var(--line)"></i><i style="background:#dff2ff"></i><i style="background:#8cc8f5"></i><i style="background:#1a72d1"></i><i style="background:#0f4f7a"></i></div><span>Mais</span></div>
-        </div>
+        <figure class="shot rv d1" role="img" aria-label="Painel Mapa de Calor">
+          <div class="shot-bar"><i></i><i></i><i></i><span>restobi.com.br/dashboards/mapa-de-calor</span></div>
+          <img src="img/calor.webp" alt="Painel Mapa de Calor" loading="lazy" decoding="async">
+        </figure>
       </div>
 
       <div class="dive">
@@ -484,14 +511,27 @@ footer nav{display:flex;gap:22px}
             <li>Uma meta por unidade, uma visão da operação inteira</li>
           </ul>
         </div>
-        <div class="panel rv d1">
-          <div class="panel-title">Metas de novembro <span class="pill" style="height:26px;font-size:12px;background:var(--lime)">+3% vs. meta</span></div>
-          <div class="goals">
-            <div class="goal-row done"><div class="top"><span>Unidade Centro</span><b>104%</b></div><div class="bar"><i style="--w:100%"></i></div></div>
-            <div class="goal-row"><div class="top"><span>Unidade Sul</span><b>88%</b></div><div class="bar"><i style="--w:88%"></i></div></div>
-            <div class="goal-row"><div class="top"><span>Shopping</span><b>71%</b></div><div class="bar"><i style="--w:71%"></i></div></div>
-          </div>
+        <figure class="shot rv d1" role="img" aria-label="Painel Faturamento Semanal com metas">
+          <div class="shot-bar"><i></i><i></i><i></i><span>restobi.com.br/dashboards/faturamento-semanal</span></div>
+          <img src="img/semanal.webp" alt="Painel Faturamento Semanal com metas" loading="lazy" decoding="async">
+        </figure>
+      </div>
+
+      <div class="dive rev">
+        <div class="dive-copy">
+          <span class="eyebrow rv">Curva ABC</span>
+          <h3 class="rv d1">Saiba quais itens <span class="mark">sustentam a casa.</span></h3>
+          <p class="rv d2">A Curva ABC mostra os poucos produtos que fazem a maior parte do faturamento e os muitos que quase não vendem. Ajuste as faixas, filtre por classe e leve o resultado para a reunião.</p>
+          <ul class="checks rv d2">
+            <li>Por produto, categoria ou vendedor</li>
+            <li>Gráfico de Pareto e ranking com % acumulado</li>
+            <li>Exporta em PDF e planilha Excel</li>
+          </ul>
         </div>
+        <figure class="shot rv d1" role="img" aria-label="Painel Curva ABC de vendas">
+          <div class="shot-bar"><i></i><i></i><i></i><span>restobi.com.br/dashboards/curva-abc</span></div>
+          <img src="img/abc.webp" alt="Painel Curva ABC de vendas" loading="lazy" decoding="async">
+        </figure>
       </div>
     </div>
   </section>
@@ -505,15 +545,12 @@ footer nav{display:flex;gap:22px}
           <h2 style="margin-top:14px">Uma visão para cada casa. <span class="serif">Um controle</span> para a operação inteira.</h2>
           <p>Troque de empresa ou unidade num clique e dê a cada pessoa só o acesso que ela precisa: o dono vê tudo, o gerente vê a casa dele.</p>
           <div class="roles"><span>Acesso seguro</span><span>Perfis por usuário</span><span>Controle por empresa</span></div>
+          <p class="admin-note"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg><span>A troca de empresa e a tela de Administração de Empresas são exclusivas do perfil de administrador. No perfil do restaurante, essa área não aparece: cada restaurante vê só a própria empresa e os painéis liberados para ele.</span></p>
         </div>
-        <div class="switcher" aria-label="Exemplo de seletor de empresa">
-          <div class="hd">Visualizar empresa</div>
-          <div class="unit on">Grupo Exemplo · Matriz <small>atual</small></div>
-          <div class="unit">Unidade Centro <small>3 usuários</small></div>
-          <div class="unit">Unidade Sul <small>2 usuários</small></div>
-          <div class="unit">Shopping <small>4 usuários</small></div>
-          <div class="unit">Delivery <small>1 usuário</small></div>
-        </div>
+        <figure class="shot on-dark" role="img" aria-label="Administração de empresas do RestoBI">
+          <div class="shot-bar"><i></i><i></i><i></i><span>restobi.com.br/dashboards/admin/companies</span></div>
+          <img src="img/empresas.webp" alt="Administração de empresas do RestoBI" loading="lazy" decoding="async">
+        </figure>
       </div>
     </div>
   </section>
@@ -583,12 +620,35 @@ footer nav{display:flex;gap:22px}
   if(el) el.innerHTML=html;
 })();
 
-// Reveal on scroll
+// Palavra que gira dentro da pílula da hero
 (function(){
-  const els=document.querySelectorAll(".rv,.panel,.phone");
-  if(!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("in"));return;}
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.18,rootMargin:"0px 0px -40px 0px"});
-  els.forEach(e=>io.observe(e));
+  const pill=document.getElementById('pillWord');if(!pill)return;
+  const words=[['crescem','#dcfce7','#16a34a'],['vendem','#ffedd5','#f97316'],['decidem','#dbeafe','#2563eb'],['lucram','#f3e8ff','#9333ea']];
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const txt=pill.querySelector('span');let i=0;
+  const fit=()=>{pill.style.width='';const w=pill.getBoundingClientRect().width;pill.style.width=w+'px'};
+  fit();addEventListener('resize',fit);
+  setInterval(()=>{
+    i=(i+1)%words.length;const [w,bg,dot]=words[i];
+    pill.classList.add('out');
+    setTimeout(()=>{
+      txt.textContent=w;pill.style.setProperty('--pb',bg);pill.style.setProperty('--pd',dot);
+      const old=pill.style.width;pill.style.width='';const nw=pill.getBoundingClientRect().width;pill.style.width=old;
+      requestAnimationFrame(()=>{pill.style.width=nw+'px';setTimeout(()=>pill.classList.remove('out'),380)});
+    },220);
+  },2400);
+})();
+
+// Animate on scroll: anima ao entrar na tela, some ao sair, e repete na próxima entrada
+(function(){
+  const els=document.querySelectorAll(".rv");
+  const show=e=>{e.classList.remove("aos-out");e.classList.add("aos-in","in")};
+  if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches){els.forEach(show);return;}
+  // entra quando passa 8% da borda de baixo; só "sai" quando fica 96px fora da tela
+  // (folga maior que o deslocamento de 4rem da animação, para não piscar na borda)
+  const enter=new IntersectionObserver(es=>es.forEach(({target:e,isIntersecting})=>{if(isIntersecting&&!e.classList.contains("aos-in"))show(e)}),{threshold:0,rootMargin:"0px 0px -8% 0px"});
+  const leave=new IntersectionObserver(es=>es.forEach(({target:e,isIntersecting})=>{if(!isIntersecting&&e.classList.contains("aos-in")){e.classList.remove("aos-in");e.classList.add("aos-out")}}),{threshold:0,rootMargin:"96px 0px 96px 0px"});
+  els.forEach(e=>{enter.observe(e);leave.observe(e)});
 })();
 
 // Nav border on scroll
